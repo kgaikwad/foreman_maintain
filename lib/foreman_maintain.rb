@@ -1,3 +1,4 @@
+require 'json'
 module ForemanMaintain
   require 'foreman_maintain/concerns/logger'
   require 'foreman_maintain/concerns/metadata'
