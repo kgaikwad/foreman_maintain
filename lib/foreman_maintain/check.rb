@@ -4,6 +4,7 @@ module ForemanMaintain
     include Concerns::SystemHelpers
     include Concerns::Metadata
     include Concerns::Finders
+    include Concerns::Utility
 
     attr_accessor :associated_feature
 

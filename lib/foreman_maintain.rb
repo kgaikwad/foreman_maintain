@@ -3,6 +3,7 @@ module ForemanMaintain
   require 'foreman_maintain/concerns/metadata'
   require 'foreman_maintain/concerns/system_helpers'
   require 'foreman_maintain/concerns/finders'
+  require 'foreman_maintain/concerns/utility'
   require 'foreman_maintain/top_level_modules'
   require 'foreman_maintain/config'
   require 'foreman_maintain/detector'
