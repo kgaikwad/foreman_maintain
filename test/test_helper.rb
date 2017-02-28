@@ -23,3 +23,11 @@ module CliAssertions
     output.gsub(/\e.*?m/, '')
   end
 end
+
+module UnitTestHelper
+  def described_class
+    Object.const_get(self.class.name)
+  end
+end
+
+include UnitTestHelper
