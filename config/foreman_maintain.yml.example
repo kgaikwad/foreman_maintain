@@ -10,3 +10,6 @@
 
 # Mention file path to store data
 # :storage_file: 'data.yml'
+
+# Mention path where foreman-proxy certificates stored on filesystem
+# :foreman_proxy_cert_path: '/etc/foreman'

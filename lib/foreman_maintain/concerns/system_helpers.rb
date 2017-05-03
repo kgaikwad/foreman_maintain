@@ -117,6 +117,12 @@ module ForemanMaintain
           result.gsub(hidden_pattern, '[FILTERED]')
         end
       end
+
+      def json_parse(json_string)
+        JSON.parse(json_string)
+      rescue
+        nil
+      end
     end
   end
 end
