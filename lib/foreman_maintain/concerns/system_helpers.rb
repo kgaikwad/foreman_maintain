@@ -123,6 +123,20 @@ module ForemanMaintain
       rescue
         nil
       end
+
+      def fetch_etc_hostname
+        execute('hostname')
+      end
+
+      def host_alias_names
+        output = execute('hostname -a')
+        output.split(' ')
+      end
+
+      def fetch_server_ip
+        output = execute("ip route get 8.8.8.8 | awk 'NR==1 {print $NF}'")
+        output.strip
+      end
     end
   end
 end
