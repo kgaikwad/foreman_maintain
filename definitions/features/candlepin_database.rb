@@ -27,12 +27,34 @@ class Features::CandlepinDatabase < ForemanMaintain::Feature
 
   def execute_cpdb_validate_cmd
     main_cmd = cpdb_validate_cmd
-    unless main_cmd.empty?
-      main_cmd += format_shell_args(
-        '-u' => configuration['username'], '-p' => configuration[%(password)]
-      )
-      execute!(main_cmd, :hidden_patterns => [configuration['password']])
-    end
+    return [true, nil] if main_cmd.empty?
+    main_cmd += format_shell_args(
+      '-u' => configuration['username'], '-p' => configuration[%(password)]
+    )
+    response_on_execute(main_cmd, :hidden_patterns => [configuration['password']])
+  end
+
+  def db_backup_dir
+    @db_backup_dir ||= File.expand_path(
+      ForemanMaintain.config.db_backup_directories[:candlepin]
+    )
+  end
+
+  def start_on_db_backup
+    backup_file_path = file_path_to_backup_db
+    backup_cmd = backup_db_command(backup_file_path)
+    execute!(backup_cmd)
+    puts "\n Note: Candlepin DB backup file path - #{backup_file_path}"
+    puts "\n In case of any exception, use above dump file to restore DB."
+  end
+
+  def env_content_ids_with_null_content
+    sql = <<-SQL
+      SELECT ec.id
+      FROM cp_env_content ec
+      LEFT JOIN cp_content c ON ec.contentid = c.id WHERE c.id IS NULL
+    SQL
+    query(sql).map { |r| r['id'] }
   end
 
   private

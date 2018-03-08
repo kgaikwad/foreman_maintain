@@ -61,6 +61,12 @@ module ForemanMaintain
         command_runner.output
       end
 
+      def response_on_execute(command, options = {})
+        result_msg = execute(command, options)
+        result = $CHILD_STATUS.success?
+        [result, result_msg]
+      end
+
       def file_exists?(filename)
         File.exist?(filename)
       end
