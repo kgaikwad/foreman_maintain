@@ -23,3 +23,6 @@
 # Mention directory path to store candlepin db backups
 # :db_backup_dir: '/var/lib/foreman-maintain/db-backups'
 
+# Mention true/false.
+# Value true will to enable cron service stop/restart on maintenance-mode start/stop
+# :enable_cron_stop: false

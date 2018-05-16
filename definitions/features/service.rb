@@ -53,6 +53,16 @@ class Features::Service < ForemanMaintain::Feature
     action_word_modified(action) + 'ed'
   end
 
+  def perform_action_on_local_service(action, service)
+    command = service_command(action, service)
+    if action == 'status'
+      status = execute(command)
+      puts "\n\n#{status}\n\n"
+    else
+      execute!(command)
+    end
+  end
+
   private
 
   def available_features
@@ -98,16 +108,6 @@ class Features::Service < ForemanMaintain::Feature
     logger.info(message)
     if action == 'start' && !ping
       raise ForemanMaintain::Error::Fail, "The remote #{app} databse is down."
-    end
-  end
-
-  def perform_action_on_local_service(action, service)
-    command = service_command(action, service)
-    if action == 'status'
-      status = execute(command)
-      puts "\n\n#{status}\n\n"
-    else
-      execute!(command)
     end
   end
 
