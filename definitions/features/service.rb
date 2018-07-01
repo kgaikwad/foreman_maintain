@@ -63,6 +63,11 @@ class Features::Service < ForemanMaintain::Feature
     end
   end
 
+  def find_service_status(service)
+    command = service_command('status', service)
+    execute?(command)
+  end
+
   private
 
   def available_features
